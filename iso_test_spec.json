@@ -1,0 +1,68 @@
+{
+    "name": "TEST_ISO8583_SPEC",
+    "fields": [
+        {
+            "name": "Message Type",
+            "type": "fixed",
+            "length": 4,
+            "dataEncoding": "ebcdic"
+        },
+        {
+            "name": "Bitmap",
+            "type": "bitmap",
+            "children": [
+                {
+                    "name": "Primary Account Number",
+                    "type": "variable",
+                    "length": 2,
+                    "dataEncoding": "ascii",
+                    "lengthEncoding": "ascii",
+                    "position": 2
+
+        }, {
+                    "name": "Processing Code",
+                    "type": "fixed",
+                    "length": 3,
+                    "dataEncoding": "bcd",
+                    "position": 3
+        }, {
+                    "name": "Amount, Transaction",
+                    "type": "fixed",
+                    "length": 12,
+                    "dataEncoding": "ebcdic",
+                    "position": 4
+        }, {
+                    "name": "STAN",
+                    "type": "fixed",
+                    "length": 6,
+                    "dataEncoding": "ebcdic",
+                    "position": 11
+        }, {
+                    "name": "Action Code",
+                    "type": "fixed",
+                    "length": 3,
+                    "dataEncoding": "ebcdic",
+                    "position": 39
+        }, {
+                    "name": "EMV",
+                    "type": "variable",
+                    "length": 2,
+                    "dataEncoding": "binary",
+                    "lengthEncoding": "bcd",
+                    "position": 55
+        }, {
+                    "name": "MAC",
+                    "type": "fixed",
+                    "length": 8,
+                    "dataEncoding": "binary",
+                    "position": 64
+        }
+
+        ]
+
+
+        }
+
+
+    ]
+}
