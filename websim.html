@@ -1,0 +1,105 @@
+<html ng-app='WebSimApp'>
+
+<head>
+    <title> WebSim - A JavaScript based ISO8583 parser/simulator</title>
+
+    <script src="file:///c:/Users/ragha/downloads/angular.js"></script>
+
+</head>
+
+<h1> WebSim - Experimental browser based ISO8583 parser/simulator</h1>
+
+<body ng-controller="WebSimTraceParseController as ctrl">
+
+    <table>
+        <tr>
+            <td>select a message specification
+                <input type="text" id="msgSpecName" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <textarea rows="10" cols="40" id="hexTrace" ng-model="ctrl.hexTrace"></textarea>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <input type="button" value="Parse" ng-click="ctrl.parseHexTrace()" />
+            </td>
+        </tr>
+    </table>
+
+
+
+</body>
+
+<script lang="javascript">
+    var IsoFixedField = function (name, type, f_length, nibbles = false) {
+
+        this.name = name;
+        this.type = type;
+        this.f_length = f_length;
+        this.v_length = v_length;
+        this.nibbles = nibbles;
+
+
+    };
+
+    var IsoSpec = function (name) {
+
+        this.name = name;
+        this.fields = [];
+
+        function getName() {
+            return this.name;
+        }
+
+
+
+
+    };
+
+    var gcagIsoSpec = new IsoSpec('GCAG ISO');
+
+    var specs = [gcagIsoSpec, new IsoSpec('AS2805 EDC'), new IsoSpec('APACS40'), new IsoSpec('APACS30')];
+
+    function getSpecByName(specName) {
+        return specs.find(function (element, index, array) {
+            if (element.name == specName) {
+                return (element);
+            }
+        });
+    }
+
+
+    function hex2bin(data) {
+
+        var binData = new ArrayBuffer(data.length / 2);
+        var j = 0;
+        for (var i = 0; i < data.length / 2; i += 2) {
+
+            binData[j] = parseInt(data.substring(i, i + 2), 16);
+            console.log(binData[j]);
+            j++;
+
+        }
+
+
+    }
+
+
+    angular.module('WebSimApp', []).controller('WebSimTraceParseController', function () {
+        this.hexTrace = '11007209090909090909';
+
+        this.parseHexTrace = function () {
+            alert(this.hexTrace);
+            var data = hex2bin(this.hexTrace);
+            var spec = getSpecByName('GCAG ISO');
+            console.log(spec);
+        }
+
+    });
+</script>
+
+</html>
